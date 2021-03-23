@@ -1,13 +1,15 @@
 <h1>Hey there!👋&nbsp; I am Akshad Patel.</h1>
 <h4>An IoT and Embedded systems developer.</h3>
+
 ---
 
 ### IoT-boards I work on 👇
-<img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen">   <img src="https://img.shields.io/badge/-ESP8266-red"> <img src="https://img.shields.io/badge/-Intel%208051-yellow">
+<img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen?style=for-the-badge">   <img src="https://img.shields.io/badge/-ESP8266-red?style=for-the-badge"> <img src="https://img.shields.io/badge/-Intel%208051-yellow?style=for-the-badge">
+
 ---
 
 ### Currently working on 👇
-<img src="https://img.shields.io/badge/-AWS-blueviolet">   <img src="https://img.shields.io/badge/-PCB%20designing-green">
+<img src="https://img.shields.io/badge/-AWS-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-PCB%20designing-green?style=for-the-badge">
 
 ---
 
