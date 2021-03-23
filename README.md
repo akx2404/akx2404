@@ -6,7 +6,7 @@
 ### IoT-boards I work on -
 <img src="https://img.shields.io/badge/-Arduino-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen?style=for-the-badge">   <img src="https://img.shields.io/badge/-ESP8266-red?style=for-the-badge"> <img src="https://img.shields.io/badge/-Intel%208051-yellow?style=for-the-badge">
 
--
+--
 
 ### Tools and Softwares I use -
 <img src="https://img.shields.io/badge/-Proteus%208%20Professional-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Keil%20uVision5-green?style=for-the-badge">   <img src="https://img.shields.io/badge/-Ni%20Multisim-critical?style=for-the-badge"> <img src="https://img.shields.io/badge/-Arduino%20IDE-blueviolet?style=for-the-badge">  <img src="https://img.shields.io/badge/-Jupyter%20Notebook%20(Anaconda3)-orange?style=for-the-badge">  <img src="https://img.shields.io/badge/-LTspice%20XVII-yellowgreen?style=for-the-badge">  <img src="https://img.shields.io/badge/-EasyEDA-yellow?style=for-the-badge">
