@@ -20,7 +20,7 @@
 
 ---
 
-[![Akshad's Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=akx2404&layout=compact&langs_count=10&theme=dark)](https://github.com/akx2404/github-readme-stats)
+[![Akshad's Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=akx2404&layout=compact&langs_count=10&theme=tokyonight)](https://github.com/akx2404/github-readme-stats)
 
 ---
 
