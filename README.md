@@ -1,4 +1,4 @@
-<h1>Hey there!👋&nbsp; I am Akshad Patel.</h1>
+<h1>Hey there!👋&nbsp;, I am Akshad.</h1>
 <h4>An IoT and Embedded systems developer.</h3>
 
 ---
@@ -8,7 +8,13 @@
 
 ---
 
-### Currently working on 👇
+### Tools and Softwares I use 👇
+<img src="https://img.shields.io/badge/-Proteus%208%20Professional-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Keil%20uVision5-green?style=for-the-badge">   <img src="https://img.shields.io/badge/-Ni%20Multisim-critical?style=for-the-badge"> <img src="https://img.shields.io/badge/-Arduino%20IDE-blueviolet?style=for-the-badge">  <img src="https://img.shields.io/badge/-Jupyter%20Notebook%20(Anaconda3)-orange?style=for-the-badge">  <img src="https://img.shields.io/badge/-LTspice%20XVII-yellowgreen?style=for-the-badge">  <img src="https://img.shields.io/badge/-EasyEDA-informational?style=for-the-badge">
+
+
+---
+
+### Currently learning 👇
 <img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-PCB%20designing-green?style=for-the-badge">
 
 ---
@@ -18,5 +24,5 @@
 ---
 
 ### Connect with me 👇
-[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](linkedin.com/in/akshad-patel)
+[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](www.linkedin.com/in/akshad-patel)
 
