@@ -1,7 +1,7 @@
 <h1>Hey there!👋&nbsp;, I am Akshad.</h1>
 <h4>An IoT and Embedded systems developer.</h3>
 
-
+---
 
 ### IoT-boards I work on -
 <img src="https://img.shields.io/badge/-Arduino-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen?style=for-the-badge">   <img src="https://img.shields.io/badge/-ESP8266-red?style=for-the-badge"> <img src="https://img.shields.io/badge/-Intel%208051-yellow?style=for-the-badge">
