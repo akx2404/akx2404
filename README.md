@@ -1,21 +1,20 @@
-### Hi there 👋
+<h1>Hey there!👋&nbsp; I am Akshad Patel.</h1>
+<h4>An IoT and Embedded systems developer.</h3>
+---
 
-<!--
-**akx2404/akx2404** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+### IoT-boards I work on 👇
+<img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen">   <img src="https://img.shields.io/badge/-ESP8266-red"> <img src="https://img.shields.io/badge/-Intel%208051-yellow">
+---
 
-Here are some ideas to get you started:
+### Currently working on 👇
+<img src="https://img.shields.io/badge/-AWS-blueviolet">   <img src="https://img.shields.io/badge/-PCB%20designing-green">
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
 
 [![Akshad's Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=akx2404&layout=compact&langs_count=10&theme=dark)](https://github.com/akx2404/github-readme-stats)
 
+---
 
+### Connect with me 👇
+[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](linkedin.com/in/akshad-patel)
 
