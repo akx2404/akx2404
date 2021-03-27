@@ -19,7 +19,7 @@
 
 #
 
-[![Akshad's Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=akx2404&hide=tcl,JupyterNotebook&layout=compact&langs_count=10&theme=highcontrast)](https://github.com/akx2404/github-readme-stats)
+[![Akshad's Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=akx2404&hide=tcl,Jupyter&nbspNotebook&layout=compact&langs_count=10&theme=highcontrast)](https://github.com/akx2404/github-readme-stats)
 
 #
 
