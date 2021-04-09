@@ -8,12 +8,6 @@
 
 #
 
-### Tools and Softwares I use -
-<img src="https://img.shields.io/badge/-Proteus%208%20Professional-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Keil%20uVision5-green?style=for-the-badge">   <img src="https://img.shields.io/badge/-Ni%20Multisim-critical?style=for-the-badge"> <img src="https://img.shields.io/badge/-Arduino%20IDE-blueviolet?style=for-the-badge">  <img src="https://img.shields.io/badge/-Jupyter%20Notebook%20(Anaconda3)-orange?style=for-the-badge">  <img src="https://img.shields.io/badge/-LTspice%20XVII-yellowgreen?style=for-the-badge">  <img src="https://img.shields.io/badge/-EasyEDA-yellow?style=for-the-badge">
-
-
-#
-
 ### Currently learning -
 <img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-PCB%20designing-green?style=for-the-badge">
 
