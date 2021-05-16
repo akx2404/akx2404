@@ -1,8 +1,6 @@
 <h1>Hey there!👋&nbsp;, I am Akshad.</h1>
 <h4>An IoT and Embedded systems developer.</h3>
 
-
-<p align="left"> <img src=https://komarev.com/ghpvc/?username=akx2404 alt=akx2404/> </p>
 ---
 
 ### IoT-boards I work on -
