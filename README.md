@@ -4,12 +4,12 @@
 ---
 
 ### IoT-boards I work on -
-<img src="https://img.shields.io/badge/-Arduino-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen?style=for-the-badge">   <img src="https://img.shields.io/badge/-ESP8266-red?style=for-the-badge"> <img src="https://img.shields.io/badge/-Intel%208051-yellow?style=for-the-badge">
+<img src="https://img.shields.io/badge/-Arduino-blue?style=for-the-badge">   <img src="https://img.shields.io/badge/-Raspberry--%20Pi-brightgreen?style=for-the-badge">   <img src="https://img.shields.io/badge/-ESP8266-red?style=for-the-badge"> <img src="https://img.shields.io/badge/-Intel%208051-yellow?style=for-the-badge"> <img src="https://img.shields.io/badge/-ESP32%20-black?style=for-the-badge">
 
 #
 
-### Currently learning -
-<img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-PCB%20designing-green?style=for-the-badge">
+### Other skills -
+<img src="https://img.shields.io/badge/-AWS%20IoT%20Core-blueviolet?style=for-the-badge">   <img src="https://img.shields.io/badge/-PCB%20designing-green?style=for-the-badge"> <img src="https://img.shields.io/badge/-Firebase%20-orange?style=for-the-badge"> <img src="https://img.shields.io/badge/-8051%20ALP%20-red?style=for-the-badge"> 
 
 #
 
