@@ -7,9 +7,9 @@
 
 - 📍 I’m currently learning **Data Structures and algorithms, RTOS mutex and queues**
 
-- 📄 My portfolio [<img src="https://img.shields.io/badge/-Portfolio-blue&style=for-the-badge"/>](https://www.linkedin.com/in/akshad-patel-6669081a9/)
+- 📄 My portfolio [<img src="https://img.shields.io/badge/-Portfolio-blue"/>](https://akshadportfolio.dorik.io/)
 
-- 📄 Connect with me [<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/akshad-patel-6669081a9/)
+- 📄 Connect with me [<img src="https://img.shields.io/badge/-LinkedIn-blue"/>](https://www.linkedin.com/in/akshad-patel-6669081a9/)
 
 - 📫 How to reach me **akx2404@gmail.com**
 
