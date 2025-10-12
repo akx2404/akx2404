@@ -1,13 +1,7 @@
 <h1>Hey there!👋&nbsp;, I am Akshad.</h1>
-<h4>IoT and Embedded systems developer.</h3>
+<h4>Working as an engineer @ Qualcomm</h3>
 
 ---
-
-- 📍 My skillset includes -  **ESP modules, Firebase, Altium PCB, RTOS, Python, C/C++**
-
-- 📍 I’m currently learning -  **Data Structures and algorithms, RTOS mutex and queues**
-
-- 📄 My portfolio - [<img src="https://img.shields.io/badge/-Portfolio-blue"/>](https://akshadportfolio.dorik.io/)
 
 - 📄 Connect with me - [<img src="https://img.shields.io/badge/-LinkedIn-blue"/>](https://www.linkedin.com/in/akshad-patel-6669081a9/)
 
