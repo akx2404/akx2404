@@ -2,6 +2,8 @@ name: Build Learning Cave APK
 on:
   push:
     branches: [build-learning-cave-apk]
+  pull_request:
+    branches: [master]
 permissions:
   contents: read
 jobs:
