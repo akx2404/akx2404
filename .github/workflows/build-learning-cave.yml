@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Restore verified Android project
         run: |
-          cat lite.part00 lite.part01 > learning-cave-lite.b64
+          cat lite.part00a lite.part00b lite.part01 > learning-cave-lite.b64
           base64 --decode learning-cave-lite.b64 > project.tar.gz
           echo "36573c13b147f019346a62035a5e830966ac103d7c2f57a9e3fad49a4b91b7c7  project.tar.gz" | sha256sum -c -
           tar -xzf project.tar.gz
