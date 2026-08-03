@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
@@ -20,31 +20,19 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle state) {
         super.onCreate(state);
 
-        getWindow().setStatusBarColor(Color.rgb(23, 18, 15));
-        getWindow().setNavigationBarColor(Color.rgb(23, 18, 15));
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        window.setStatusBarColor(Color.rgb(23, 18, 15));
+        window.setNavigationBarColor(Color.rgb(23, 18, 15));
         if (Build.VERSION.SDK_INT >= 30) {
-            getWindow().setDecorFitsSystemWindows(true);
+            window.setDecorFitsSystemWindows(true);
         }
 
         webView = new WebView(this);
         webView.setBackgroundColor(Color.rgb(23, 18, 15));
         webView.setFitsSystemWindows(true);
-        webView.setOnApplyWindowInsetsListener((view, insets) -> {
-            int top = 0;
-            int bottom = 0;
-            if (Build.VERSION.SDK_INT >= 30) {
-                android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-                top = bars.top;
-                bottom = bars.bottom;
-            } else {
-                top = insets.getSystemWindowInsetTop();
-                bottom = insets.getSystemWindowInsetBottom();
-            }
-            view.setPadding(0, top, 0, bottom);
-            return insets;
-        });
+        webView.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
         setContentView(webView);
 
         WebSettings settings = webView.getSettings();
@@ -55,40 +43,26 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        settings.setTextZoom(100);
 
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                view.evaluateJavascript(
-                    "(function(){if(document.getElementById('cave-character-engine'))return;" +
-                    "var s=document.createElement('script');" +
-                    "s.id='cave-character-engine';" +
-                    "s.src='file:///android_asset/characters.js';" +
-                    "document.body.appendChild(s);})();",
-                    null
-                );
-            }
-        });
+        webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
         webView.loadUrl("file:///android_asset/index.html");
 
         if (Build.VERSION.SDK_INT >= 33) {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
-                OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-                this::goBackInsideApp
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    this::goBackInsideApp
             );
         }
     }
 
     private void goBackInsideApp() {
         webView.evaluateJavascript(
-            "window.caveBack ? String(window.caveBack()) : 'false'",
-            result -> {
-                if (result == null || result.contains("false")) {
-                    finish();
+                "window.caveBack ? String(window.caveBack()) : 'false'",
+                result -> {
+                    if (result == null || result.contains("false")) finish();
                 }
-            }
         );
     }
 
