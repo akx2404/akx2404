@@ -22,8 +22,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: learning-cave-ai-daily
-  cancel-in-progress: false
+  group: learning-cave-ai-daily-v2
+  cancel-in-progress: true
 
 jobs:
   generate-and-build:
