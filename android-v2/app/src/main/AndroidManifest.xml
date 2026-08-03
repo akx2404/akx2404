@@ -3,6 +3,8 @@
   <application
       android:theme="@style/AppTheme"
       android:label="Akshad's Learning Cave"
+      android:icon="@drawable/ic_launcher"
+      android:roundIcon="@drawable/ic_launcher"
       android:usesCleartextTraffic="false"
       android:allowBackup="true">
     <activity
