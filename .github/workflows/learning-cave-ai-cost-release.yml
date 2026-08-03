@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: learning-cave-ai-cost-release-v1
+  group: learning-cave-ai-cost-release-v2
   cancel-in-progress: true
 
 jobs:
