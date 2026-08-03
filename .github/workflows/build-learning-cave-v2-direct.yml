@@ -1,4 +1,4 @@
-name: Build Learning Cave V2 Direct APK
+name: Build Learning Cave V3 APK
 on:
   pull_request:
     branches: [master]
@@ -10,15 +10,17 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Add Marathi language layer
+      - name: Add Marathi and V3 layers
         run: |
           base64 --decode android-v2/marathi.payload | gzip -dc > android-v2/app/src/main/assets/marathi.js
           python - <<'PY'
           from pathlib import Path
           p=Path('android-v2/app/src/main/assets/index.html')
           s=p.read_text()
-          if 'marathi.js' not in s:
-              s=s.replace('<script src="characters.js"></script>', '<script src="marathi.js"></script><script src="characters.js"></script>')
+          marker='<script src="characters.js"></script>'
+          injected='<script src="marathi.js"></script><script src="characters.js"></script><script src="v3.js"></script>'
+          if 'v3.js' not in s:
+              s=s.replace(marker, injected)
           p.write_text(s)
           PY
       - uses: actions/setup-java@v4
@@ -40,10 +42,12 @@ jobs:
           test -s "$APK"
           unzip -t "$APK"
           unzip -p "$APK" assets/marathi.js | grep -q "दररोजच्या स्वतंत्र ज्ञानगुहा"
-          cp "$APK" Akshads-Learning-Cave-V2-Marathi.apk
+          unzip -p "$APK" assets/v3.js | grep -q "Which concept best explains this situation"
+          unzip -l "$APK" | grep -q "res/drawable/ic_launcher"
+          cp "$APK" Akshads-Learning-Cave-V3.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: akshads-learning-cave-v2-marathi-apk
-          path: Akshads-Learning-Cave-V2-Marathi.apk
+          name: akshads-learning-cave-v3-apk
+          path: Akshads-Learning-Cave-V3.apk
           if-no-files-found: error
           retention-days: 1
