@@ -1,0 +1,54 @@
+name: Build Learning Cave V6 APK
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  build-v6:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable V6 visual layer
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('android-v2/app/src/main/assets/index.html')
+          s=p.read_text()
+          assert 'v6.js' not in s
+          s=s.replace('</body>','<script src="v6.js"></script></body>')
+          p.write_text(s)
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Validate V6 APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -p "$APK" assets/index.html > /tmp/index.html
+          unzip -p "$APK" assets/v6.js > /tmp/v6.js
+          grep -q 'src="v6.js"' /tmp/index.html
+          grep -q 'v6-strip' /tmp/v6.js
+          grep -q 'pageimages' /tmp/v6.js
+          grep -q 'Pause and think' /tmp/v6.js
+          ! grep -q 'MutationObserver' /tmp/v6.js
+          cp "$APK" Akshads-Learning-Cave-V6.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-v6-apk
+          path: Akshads-Learning-Cave-V6.apk
+          if-no-files-found: error
+          retention-days: 1
