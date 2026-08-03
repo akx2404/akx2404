@@ -1,0 +1,57 @@
+name: Build Learning Cave V4.1 APK
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  build-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare V4.1 web assets
+        run: |
+          base64 --decode android-v2/marathi.payload | gzip -dc > android-v2/app/src/main/assets/marathi.js
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('android-v2/app/src/main/assets/index.html')
+          s=p.read_text()
+          names=['marathi.js','characters.js','v3.js','v4.js','v4fix.js']
+          for name in names:
+              s=s.replace(f'<script src="{name}"></script>','')
+          tags=''.join(f'<script src="{name}"></script>' for name in names)
+          s=s.replace('</body>',tags+'</body>')
+          p.write_text(s)
+          for name in names:
+              assert s.count(f'src="{name}"')==1
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Validate V4.1 APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -p "$APK" assets/index.html | grep -q 'src="v4fix.js"'
+          unzip -p "$APK" assets/v4fix.js | grep -q 'v4-language-fab'
+          unzip -p "$APK" assets/v4.js | grep -q 'translate.googleapis.com'
+          grep -q 'setOnApplyWindowInsetsListener' android-v2/app/src/main/java/com/akshad/learningcave/MainActivity.java
+          cp "$APK" Akshads-Learning-Cave-V4.1.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-v4-1-apk
+          path: Akshads-Learning-Cave-V4.1.apk
+          if-no-files-found: error
+          retention-days: 1

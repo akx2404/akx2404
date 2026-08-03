@@ -1,0 +1,59 @@
+name: Build Learning Cave V8 Dynamic APK
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  build-v8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable redesign and dynamic daily engine
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('android-v2/app/src/main/assets/index.html')
+          s=p.read_text()
+          # Strip any previously injected optional engines from the build copy.
+          for name in ['v6.js','v7.js','dynamic-daily.js','redesign.js']:
+              s=s.replace(f'<script src="{name}"></script>','')
+          injection='<script src="redesign.js"></script><script src="dynamic-daily.js"></script>'
+          s=s.replace('</body>',injection+'</body>')
+          p.write_text(s)
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Validate V8 dynamic APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -p "$APK" assets/index.html >/tmp/index.html
+          grep -q 'redesign.js' /tmp/index.html
+          grep -q 'dynamic-daily.js' /tmp/index.html
+          ! grep -q 'v7.js' /tmp/index.html
+          unzip -p "$APK" assets/dynamic-daily.js >/tmp/dynamic.js
+          grep -q 'FIVE_DAYS=5' /tmp/dynamic.js
+          grep -q 'generator=search' /tmp/dynamic.js
+          grep -q 'not-enough-topics' /tmp/dynamic.js
+          grep -q 'delete lessons' /tmp/dynamic.js
+          cp "$APK" Akshads-Learning-Cave-V8-Dynamic.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-v8-dynamic-apk
+          path: Akshads-Learning-Cave-V8-Dynamic.apk
+          if-no-files-found: error
+          retention-days: 1

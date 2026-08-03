@@ -1,0 +1,67 @@
+name: Build Learning Cave V3 Fixed APK
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject character, Marathi and V3 layers
+        run: |
+          base64 --decode android-v2/marathi.payload | gzip -dc > android-v2/app/src/main/assets/marathi.js
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('android-v2/app/src/main/assets/index.html')
+          s = p.read_text()
+          for tag in [
+              '<script src="marathi.js"></script>',
+              '<script src="characters.js"></script>',
+              '<script src="v3.js"></script>'
+          ]:
+              s = s.replace(tag, '')
+          bundle = '<script src="marathi.js"></script><script src="characters.js"></script><script src="v3.js"></script>'
+          if '</body>' not in s:
+              raise SystemExit('index.html has no </body> marker')
+          s = s.replace('</body>', bundle + '</body>')
+          p.write_text(s)
+          assert s.count('src="marathi.js"') == 1
+          assert s.count('src="characters.js"') == 1
+          assert s.count('src="v3.js"') == 1
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Validate loaded V3 assets and name APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -p "$APK" assets/index.html > /tmp/index.html
+          grep -q 'src="marathi.js"' /tmp/index.html
+          grep -q 'src="characters.js"' /tmp/index.html
+          grep -q 'src="v3.js"' /tmp/index.html
+          unzip -p "$APK" assets/marathi.js | grep -q "दररोजच्या स्वतंत्र ज्ञानगुहा"
+          unzip -p "$APK" assets/v3.js | grep -q "Which concept best explains this situation"
+          unzip -p "$APK" assets/characters.js | grep -q "Mira the Mind Cartographer"
+          unzip -l "$APK" | grep -q "res/drawable/ic_launcher"
+          cp "$APK" Akshads-Learning-Cave-V3-Fixed.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-v3-fixed-apk
+          path: Akshads-Learning-Cave-V3-Fixed.apk
+          if-no-files-found: error
+          retention-days: 1
