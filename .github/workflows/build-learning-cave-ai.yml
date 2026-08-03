@@ -8,6 +8,7 @@ on:
     paths:
       - 'ai/**'
       - 'android-v2/app/src/main/assets/ai_reader.html'
+      - 'android-v2/app/src/main/assets/guide.js'
       - '.github/workflows/build-learning-cave-ai.yml'
   workflow_dispatch:
     inputs:
@@ -22,7 +23,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: learning-cave-ai-editorial-v1
+  group: learning-cave-ai-guide-editorial-v1
   cancel-in-progress: true
 
 jobs:
@@ -69,7 +70,7 @@ jobs:
             assert x['images'][0].get('kind') == 'editorial'
             for im in x['images']:
               assert (p.parent/im['file']).stat().st_size>10000
-          print('Validated editorial pack', latest)
+          print('Validated guide + editorial pack', latest)
           PY
       - name: Publish generated pack
         continue-on-error: true
@@ -77,7 +78,7 @@ jobs:
           git config user.name "Learning Cave Daily Bot"
           git config user.email "actions@users.noreply.github.com"
           git add daily ai/used_topics.json
-          git diff --cached --quiet || git commit -m "Publish editorial AI lesson pack [skip ci]"
+          git diff --cached --quiet || git commit -m "Publish guide editorial AI lesson pack [skip ci]"
           git push origin HEAD:build-learning-cave-v2-direct
       - uses: android-actions/setup-android@v3
       - uses: actions/setup-java@v4
@@ -89,9 +90,17 @@ jobs:
           gradle-version: '8.9'
       - name: Install Android SDK
         run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
-      - name: Enable AI reader and bundle first pack
+      - name: Enable AI reader, guide and bundle first pack
         run: |
           cp android-v2/app/src/main/assets/ai_reader.html android-v2/app/src/main/assets/index.html
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('android-v2/app/src/main/assets/index.html')
+          s=p.read_text(encoding='utf-8')
+          assert '</body>' in s
+          s=s.replace('</body>','<script src="guide.js"></script></body>')
+          p.write_text(s,encoding='utf-8')
+          PY
           rm -rf android-v2/app/src/main/assets/daily
           mkdir -p android-v2/app/src/main/assets/daily
           cp -r daily/* android-v2/app/src/main/assets/daily/
@@ -107,11 +116,14 @@ jobs:
           grep -q "Ten new journeys every day" /tmp/index.html
           grep -q "aiDailyCache" /tmp/index.html
           grep -q "data-lang=\"mr\"" /tmp/index.html
+          grep -q 'script src="guide.js"' /tmp/index.html
+          unzip -p "$APK" assets/guide.js >/tmp/guide.js
+          grep -q "The Cave Guide" /tmp/guide.js
+          grep -q "ज्ञानगुहेचा मार्गदर्शक" /tmp/guide.js
           unzip -l "$APK" | grep -q 'assets/daily/latest.json'
-          unzip -p "$APK" assets/daily/latest.json >/tmp/latest.json
-          cp "$APK" Akshads-Learning-Cave-AI-Editorial.apk
+          cp "$APK" Akshads-Learning-Cave-AI-Guide.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: akshads-learning-cave-ai-editorial-apk
-          path: Akshads-Learning-Cave-AI-Editorial.apk
+          name: akshads-learning-cave-ai-guide-apk
+          path: Akshads-Learning-Cave-AI-Guide.apk
           retention-days: 3
