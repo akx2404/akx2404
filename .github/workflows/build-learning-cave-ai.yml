@@ -58,13 +58,16 @@ jobs:
           d=json.loads(p.read_text())
           assert len(d['lessons'])==10
           assert len({x['title'].strip().casefold() for x in d['lessons']})==10
+          assert sum(len(x['english']['quiz']) for x in d['lessons'])==50
           for x in d['lessons']:
-            assert 15 <= x['readingMinutes'] <= 22
-            assert len(x['english']['sections'])>=7 and len(x['marathi']['sections'])>=7
-            assert len(x['english']['quiz'])>=6 and len(x['marathi']['quiz'])>=6
-            assert len(x['images'])==2
-            for im in x['images']: assert (p.parent/im['file']).stat().st_size>10000
-          print('Validated', latest)
+            assert 14 <= x['readingMinutes'] <= 18
+            assert 6 <= len(x['english']['sections']) <= 7
+            assert 6 <= len(x['marathi']['sections']) <= 7
+            assert len(x['english']['quiz'])==5 and len(x['marathi']['quiz'])==5
+            assert len(x['images'])==1
+            for im in x['images']:
+              assert (p.parent/im['file']).stat().st_size>10000
+          print('Validated cost-optimized pack', latest)
           PY
       - name: Publish generated pack
         continue-on-error: true
