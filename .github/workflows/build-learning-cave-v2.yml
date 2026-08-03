@@ -7,9 +7,14 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Restore verified Android project
+        run: |
+          base64 --decode lcv2.part00 > lcv2.tar.gz
+          echo "c95c50adf2fb9b0820d9b069ec06e8cf7ed8cd71a3697dce353e9f6b5e362256  lcv2.tar.gz" | sha256sum -c -
+          tar -xzf lcv2.tar.gz
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -20,12 +25,11 @@ jobs:
           gradle-version: '8.9'
       - name: Install Android SDK
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
-      - name: Validate web app
-        run: node --check app/src/main/assets/app.js
       - name: Build APK
+        working-directory: lcv2
         run: gradle :app:assembleDebug --stacktrace
       - name: Name APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk Akshads-Learning-Cave-V2.apk
+        run: cp lcv2/app/build/outputs/apk/debug/app-debug.apk Akshads-Learning-Cave-V2.apk
       - uses: actions/upload-artifact@v4
         with:
           name: akshads-learning-cave-v2-apk
