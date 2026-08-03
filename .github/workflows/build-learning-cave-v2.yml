@@ -10,11 +10,12 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Restore verified Android project
+      - name: Restore Android project
         run: |
-          base64 --decode lcv2.part00 > lcv2.tar.gz
-          echo "c95c50adf2fb9b0820d9b069ec06e8cf7ed8cd71a3697dce353e9f6b5e362256  lcv2.tar.gz" | sha256sum -c -
-          tar -xzf lcv2.tar.gz
+          cat v2partaa v2partab v2partac v2partad > lc_v2.b64
+          base64 --decode lc_v2.b64 > lc_v2.tar.gz
+          echo "0adfcb2d03d79c4326e580871ae0fc8b72e6ceee695db4545c34089d77b3a00e  lc_v2.tar.gz" | sha256sum -c -
+          tar -xzf lc_v2.tar.gz
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -26,10 +27,10 @@ jobs:
       - name: Install Android SDK
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Build APK
-        working-directory: lcv2
+        working-directory: lc_v2
         run: gradle :app:assembleDebug --stacktrace
       - name: Name APK
-        run: cp lcv2/app/build/outputs/apk/debug/app-debug.apk Akshads-Learning-Cave-V2.apk
+        run: cp lc_v2/app/build/outputs/apk/debug/app-debug.apk Akshads-Learning-Cave-V2.apk
       - uses: actions/upload-artifact@v4
         with:
           name: akshads-learning-cave-v2-apk
