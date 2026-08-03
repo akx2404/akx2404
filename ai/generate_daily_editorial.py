@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 import datetime as dt
 import json
+import pathlib
 import types
 import urllib.request
 
-# Load the last proven cost-optimized generator core from an immutable commit.
-# This lets the established workflow keep calling ai/generate_daily.py while
-# the visual generation is upgraded without duplicating the large schema code.
 CORE_URL = "https://raw.githubusercontent.com/akx2404/akx2404/d26a70a86d251a06b387637ffb8629b2804ef3ed/ai/generate_daily.py"
 core_source = urllib.request.urlopen(CORE_URL, timeout=60).read().decode("utf-8")
 g = types.ModuleType("learning_cave_generator_core")
 g.__file__ = CORE_URL
 exec(compile(core_source, CORE_URL, "exec"), g.__dict__)
+
+# The core was loaded from an immutable URL, so explicitly restore all paths
+# to this checked-out repository rather than deriving them from that URL.
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+g.ROOT = ROOT
+g.DAILY = ROOT / "daily"
+g.HISTORY = ROOT / "ai" / "used_topics.json"
 
 g.STYLE = (
     "Premium editorial illustration for an intelligent nonfiction magazine, "
@@ -99,6 +104,7 @@ def main():
     )
     old.setdefault("topics", []).extend([x["topic"] for x in picks])
     old["topics"] = old["topics"][-2000:]
+    g.HISTORY.parent.mkdir(parents=True, exist_ok=True)
     g.HISTORY.write_text(
         json.dumps(old, ensure_ascii=False, indent=2), encoding="utf-8"
     )
