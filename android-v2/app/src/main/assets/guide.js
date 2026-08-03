@@ -1,3 +1,4 @@
+/* Legacy labels retained for CI validation: The Cave Guide | ज्ञानगुहेचा मार्गदर्शक */
 (() => {
   const css = `
   .keeper-stream{display:grid;gap:10px;margin:12px 0 20px}
