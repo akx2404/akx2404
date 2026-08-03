@@ -1,4 +1,4 @@
-name: Build Learning Cave AI Daily APK
+name: Build Learning Cave Cave Keeper APK
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
     paths:
       - 'ai/**'
       - 'android-v2/app/src/main/assets/ai_reader.html'
-      - 'android-v2/app/src/main/assets/guide.js'
+      - 'android-v2/app/src/main/assets/keeper_v9.js'
       - '.github/workflows/build-learning-cave-ai.yml'
   workflow_dispatch:
     inputs:
@@ -23,17 +23,16 @@ permissions:
   contents: write
 
 concurrency:
-  group: learning-cave-ai-guide-editorial-v1
+  group: learning-cave-keeper-dialogue-v9
   cancel-in-progress: true
 
 jobs:
   generate-and-build:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 180
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       TEXT_MODEL: gpt-5-mini
-      IMAGE_MODEL: gpt-image-1-mini
       LESSON_DATE: ${{ github.event.inputs.lesson_date }}
     steps:
       - uses: actions/checkout@v4
@@ -46,10 +45,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Check OpenAI billing and model access
+      - name: Check OpenAI access
         run: python ai/api_probe.py
-      - name: Generate ten daily lessons and editorial illustrations
-        run: python ai/generate_daily_editorial.py
+      - name: Generate ten lessons and Cave Keeper dialogue
+        run: python ai/generate_daily_keeper.py
       - name: Validate generated pack
         run: |
           python - <<'PY'
@@ -57,20 +56,24 @@ jobs:
           latest=json.loads(pathlib.Path('daily/latest.json').read_text())['date']
           p=pathlib.Path('daily')/latest/'manifest.json'
           d=json.loads(p.read_text())
-          assert d.get('visualMode') == 'editorial-illustration'
-          assert len(d['lessons'])==10
-          assert len({x['title'].strip().casefold() for x in d['lessons']})==10
-          assert sum(len(x['english']['quiz']) for x in d['lessons'])==50
+          assert d.get('visualMode') == 'cave-keeper-dialogue'
+          assert len(d['lessons']) == 10
+          assert len({x['title'].strip().casefold() for x in d['lessons']}) == 10
+          assert sum(len(x['english']['quiz']) for x in d['lessons']) == 50
+          assert sum(len(x['keeper']) for x in d['lessons']) == 350
           for x in d['lessons']:
             assert 14 <= x['readingMinutes'] <= 18
             assert 6 <= len(x['english']['sections']) <= 7
             assert 6 <= len(x['marathi']['sections']) <= 7
-            assert len(x['english']['quiz'])==5 and len(x['marathi']['quiz'])==5
-            assert len(x['images'])==1
-            assert x['images'][0].get('kind') == 'editorial'
-            for im in x['images']:
-              assert (p.parent/im['file']).stat().st_size>10000
-          print('Validated guide + editorial pack', latest)
+            assert len(x['english']['quiz']) == 5 and len(x['marathi']['quiz']) == 5
+            assert x['images'] == []
+            assert len(x['keeper']) == 35
+            assert all(k['english'].strip() and k['marathi'].strip() for k in x['keeper'])
+            counts={i:0 for i in range(8)}
+            for k in x['keeper']: counts[k['placement']] += 1
+            assert min(counts.values()) >= 3, counts
+          assert not list(p.parent.glob('*.png'))
+          print('Validated no-image Cave Keeper pack', latest)
           PY
       - name: Publish generated pack
         continue-on-error: true
@@ -78,7 +81,7 @@ jobs:
           git config user.name "Learning Cave Daily Bot"
           git config user.email "actions@users.noreply.github.com"
           git add daily ai/used_topics.json
-          git diff --cached --quiet || git commit -m "Publish guide editorial AI lesson pack [skip ci]"
+          git diff --cached --quiet || git commit -m "Publish Cave Keeper lesson pack [skip ci]"
           git push origin HEAD:build-learning-cave-v2-direct
       - uses: android-actions/setup-android@v3
       - uses: actions/setup-java@v4
@@ -90,7 +93,7 @@ jobs:
           gradle-version: '8.9'
       - name: Install Android SDK
         run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
-      - name: Enable AI reader, guide and bundle first pack
+      - name: Enable reader and Cave Keeper
         run: |
           cp android-v2/app/src/main/assets/ai_reader.html android-v2/app/src/main/assets/index.html
           python - <<'PY'
@@ -98,7 +101,7 @@ jobs:
           p=Path('android-v2/app/src/main/assets/index.html')
           s=p.read_text(encoding='utf-8')
           assert '</body>' in s
-          s=s.replace('</body>','<script src="guide.js"></script></body>')
+          s=s.replace('</body>','<script src="keeper_v9.js"></script></body>')
           p.write_text(s,encoding='utf-8')
           PY
           rm -rf android-v2/app/src/main/assets/daily
@@ -116,14 +119,15 @@ jobs:
           grep -q "Ten new journeys every day" /tmp/index.html
           grep -q "aiDailyCache" /tmp/index.html
           grep -q "data-lang=\"mr\"" /tmp/index.html
-          grep -q 'script src="guide.js"' /tmp/index.html
-          unzip -p "$APK" assets/guide.js >/tmp/guide.js
-          grep -q "The Cave Guide" /tmp/guide.js
-          grep -q "ज्ञानगुहेचा मार्गदर्शक" /tmp/guide.js
+          grep -q 'script src="keeper_v9.js"' /tmp/index.html
+          unzip -p "$APK" assets/keeper_v9.js > /tmp/keeper.js
+          grep -q "Cave Keeper" /tmp/keeper.js
+          grep -q "गुहा रक्षक" /tmp/keeper.js
           unzip -l "$APK" | grep -q 'assets/daily/latest.json'
-          cp "$APK" Akshads-Learning-Cave-AI-Guide.apk
+          if unzip -l "$APK" | grep -q 'assets/daily/.*\.png'; then exit 1; fi
+          cp "$APK" Akshads-Learning-Cave-Cave-Keeper-V9.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: akshads-learning-cave-ai-guide-apk
-          path: Akshads-Learning-Cave-AI-Guide.apk
+          name: akshads-learning-cave-cave-keeper-v9-apk
+          path: Akshads-Learning-Cave-Cave-Keeper-V9.apk
           retention-days: 3
