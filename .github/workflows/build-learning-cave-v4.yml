@@ -47,7 +47,7 @@ jobs:
           unzip -p "$APK" assets/index.html | grep -q 'src="v4fix.js"'
           unzip -p "$APK" assets/v4fix.js | grep -q 'v4-language-fab'
           unzip -p "$APK" assets/v4.js | grep -q 'translate.googleapis.com'
-          unzip -p "$APK" classes.dex | strings | grep -q 'setOnApplyWindowInsetsListener'
+          grep -q 'setOnApplyWindowInsetsListener' android-v2/app/src/main/java/com/akshad/learningcave/MainActivity.java
           cp "$APK" Akshads-Learning-Cave-V4.1.apk
       - uses: actions/upload-artifact@v4
         with:
