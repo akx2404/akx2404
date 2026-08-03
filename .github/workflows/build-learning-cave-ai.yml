@@ -1,0 +1,124 @@
+name: Build Learning Cave AI Daily APK
+
+on:
+  push:
+    branches: [build-learning-cave-v2-direct]
+    paths:
+      - 'ai/**'
+      - 'android-v2/app/src/main/assets/ai_reader.html'
+      - '.github/workflows/build-learning-cave-ai.yml'
+  workflow_dispatch:
+    inputs:
+      lesson_date:
+        description: 'Optional YYYY-MM-DD date'
+        required: false
+        type: string
+  schedule:
+    - cron: '30 0 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: learning-cave-ai-daily
+  cancel-in-progress: false
+
+jobs:
+  generate-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TEXT_MODEL: gpt-5-mini
+      IMAGE_MODEL: gpt-image-1-mini
+      LESSON_DATE: ${{ github.event.inputs.lesson_date }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build-learning-cave-v2-direct
+          fetch-depth: 0
+
+      - name: Verify secret
+        run: test -n "$OPENAI_API_KEY"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate ten daily lessons and comics
+        run: python ai/generate_daily.py
+
+      - name: Validate generated pack
+        run: |
+          DATE="${LESSON_DATE:-$(TZ=Asia/Kolkata date +%F)}"
+          test -s "daily/$DATE/manifest.json"
+          python - <<'PY'
+          import json, os, pathlib
+          from datetime import datetime
+          date=os.getenv('LESSON_DATE') or datetime.now().astimezone().date().isoformat()
+          p=pathlib.Path('daily')/date/'manifest.json'
+          data=json.loads(p.read_text())
+          assert len(data['lessons']) == 10
+          ids=[x['id'] for x in data['lessons']]
+          assert len(set(ids)) == 10
+          titles=[x['title'].strip().casefold() for x in data['lessons']]
+          assert len(set(titles)) == 10
+          for lesson in data['lessons']:
+              assert 15 <= lesson['readingMinutes'] <= 22
+              assert len(lesson['english']['sections']) >= 7
+              assert len(lesson['marathi']['sections']) >= 7
+              assert len(lesson['english']['quiz']) >= 6
+              assert len(lesson['images']) == 2
+              for image in lesson['images']:
+                  assert (p.parent/image['file']).stat().st_size > 10000
+          print('Validated', p)
+          PY
+
+      - name: Publish generated pack to repository
+        run: |
+          git config user.name "Learning Cave Daily Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add daily ai/used_topics.json
+          git diff --cached --quiet || git commit -m "Publish AI lesson pack [skip ci]"
+          git push origin HEAD:build-learning-cave-v2-direct
+
+      - name: Install Android toolchain
+        uses: android-actions/setup-android@v3
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Enable AI reader
+        run: cp android-v2/app/src/main/assets/ai_reader.html android-v2/app/src/main/assets/index.html
+
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+
+      - name: Validate APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -p "$APK" assets/index.html > /tmp/index.html
+          grep -q "Ten new journeys every day" /tmp/index.html
+          grep -q "aiDailyCache" /tmp/index.html
+          grep -q "data-lang=\"mr\"" /tmp/index.html
+          ! grep -q "v7.js" /tmp/index.html
+          cp "$APK" Akshads-Learning-Cave-AI.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-ai-apk
+          path: Akshads-Learning-Cave-AI.apk
+          if-no-files-found: error
+          retention-days: 3
