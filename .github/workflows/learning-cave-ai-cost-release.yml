@@ -1,0 +1,94 @@
+name: Learning Cave AI Cost Release
+
+on:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/learning-cave-ai-cost-release.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: learning-cave-ai-cost-release-v1
+  cancel-in-progress: true
+
+jobs:
+  generate-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TEXT_MODEL: gpt-5-mini
+      IMAGE_MODEL: gpt-image-1-mini
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build-learning-cave-v2-direct
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify OpenAI access
+        run: python ai/api_probe.py
+      - name: Generate optimized pack
+        run: python ai/generate_daily.py
+      - name: Validate pack
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          latest=json.loads(pathlib.Path('daily/latest.json').read_text())['date']
+          p=pathlib.Path('daily')/latest/'manifest.json'
+          d=json.loads(p.read_text())
+          assert len(d['lessons'])==10
+          assert len({x['title'].strip().casefold() for x in d['lessons']})==10
+          assert sum(len(x['english']['quiz']) for x in d['lessons'])==50
+          assert sum(len(x['images']) for x in d['lessons'])==10
+          for x in d['lessons']:
+            assert len(x['english']['quiz'])==5
+            assert len(x['marathi']['quiz'])==5
+            assert len(x['images'])==1
+            for im in x['images']:
+              assert (p.parent/im['file']).stat().st_size>10000
+          print('Validated',latest)
+          PY
+      - name: Publish pack
+        continue-on-error: true
+        run: |
+          git config user.name "Learning Cave Daily Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add daily ai/used_topics.json
+          git diff --cached --quiet || git commit -m "Publish optimized AI pack [skip ci]"
+          git push origin HEAD:build-learning-cave-v2-direct
+      - uses: android-actions/setup-android@v3
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: yes | sdkmanager --licenses >/dev/null && sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Bundle AI reader and pack
+        run: |
+          cp android-v2/app/src/main/assets/ai_reader.html android-v2/app/src/main/assets/index.html
+          rm -rf android-v2/app/src/main/assets/daily
+          mkdir -p android-v2/app/src/main/assets/daily
+          cp -r daily/* android-v2/app/src/main/assets/daily/
+      - name: Build APK
+        working-directory: android-v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Validate APK
+        run: |
+          APK=android-v2/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          unzip -t "$APK"
+          unzip -l "$APK" | grep -q 'assets/daily/latest.json'
+          cp "$APK" Akshads-Learning-Cave-AI-Cost-Optimized.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-ai-cost-optimized-apk
+          path: Akshads-Learning-Cave-AI-Cost-Optimized.apk
+          retention-days: 3
