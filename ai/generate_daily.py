@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Daily V13 generation plus native-reader Keeper face polish."""
-from generate_daily_keeper import main as generate_full_day
+from generate_daily_v13 import main as generate_full_day
 from pathlib import Path
 import re
 
@@ -31,7 +31,6 @@ def patch_native_reader():
         @Override protected void onDraw(Canvas c) {
             super.onDraw(c);
             float w = getWidth(), h = getHeight();
-            float cx = w * .50f;
             float d = getResources().getDisplayMetrics().density;
 
             p.setStyle(Paint.Style.FILL);
