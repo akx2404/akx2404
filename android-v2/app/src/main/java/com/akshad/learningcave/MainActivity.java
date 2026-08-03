@@ -32,7 +32,20 @@ public class MainActivity extends Activity {
         settings.setAllowContentAccess(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
 
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.evaluateJavascript(
+                    "(function(){if(document.getElementById('cave-character-engine'))return;" +
+                    "var s=document.createElement('script');" +
+                    "s.id='cave-character-engine';" +
+                    "s.src='file:///android_asset/characters.js';" +
+                    "document.body.appendChild(s);})();",
+                    null
+                );
+            }
+        });
         webView.setWebChromeClient(new WebChromeClient());
         webView.loadUrl("file:///android_asset/index.html");
 
