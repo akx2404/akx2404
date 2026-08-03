@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 import datetime as dt
 import json
+import types
+import urllib.request
 
-import generate_daily as g
+# Load the last proven cost-optimized generator core from an immutable commit.
+# This lets the established workflow keep calling ai/generate_daily.py while
+# the visual generation is upgraded without duplicating the large schema code.
+CORE_URL = "https://raw.githubusercontent.com/akx2404/akx2404/d26a70a86d251a06b387637ffb8629b2804ef3ed/ai/generate_daily.py"
+core_source = urllib.request.urlopen(CORE_URL, timeout=60).read().decode("utf-8")
+g = types.ModuleType("learning_cave_generator_core")
+g.__file__ = CORE_URL
+exec(compile(core_source, CORE_URL, "exec"), g.__dict__)
 
-# One strong, text-free editorial image is more reliable and useful than a
-# multi-panel AI comic. Keep the existing lesson schema and reader contract,
-# but reinterpret the single image as a magazine-style concept illustration.
 g.STYLE = (
     "Premium editorial illustration for an intelligent nonfiction magazine, "
     "single coherent scene, strong visual metaphor, elegant restrained composition, "
@@ -18,7 +24,7 @@ g.STYLE = (
 
 
 def editorial_prompt(chamber, picked, lesson):
-    cid, en, _mr, scope = chamber
+    cid, en, _mr, _scope = chamber
     opening = lesson["english"]["opening"][:900]
     takeaway = lesson["english"]["takeaway"][:500]
     topic = lesson["title"]
