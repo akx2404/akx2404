@@ -45,6 +45,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check OpenAI billing and model access
+        run: python ai/api_probe.py
       - name: Generate ten daily lessons and comics
         run: python ai/generate_daily.py
       - name: Validate generated pack
