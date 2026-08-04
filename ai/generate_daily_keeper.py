@@ -2,11 +2,13 @@
 import base64
 import datetime as dt
 import json
+import os
 import pathlib
 import re
 import types
 import unicodedata
 import urllib.request
+from zoneinfo import ZoneInfo
 
 CORE_URL = "https://raw.githubusercontent.com/akx2404/akx2404/d26a70a86d251a06b387637ffb8629b2804ef3ed/ai/generate_daily.py"
 core_source = urllib.request.urlopen(CORE_URL, timeout=60).read().decode("utf-8")
@@ -18,6 +20,10 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 g.ROOT = ROOT
 g.DAILY = ROOT / "daily"
 g.HISTORY = ROOT / "ai" / "used_topics.json"
+# The app is for an India-based daily routine. GitHub runners use UTC, so the
+# date must be resolved explicitly in Asia/Kolkata. LESSON_DATE remains an
+# escape hatch for manual backfills and testing.
+g.DATE = os.getenv("LESSON_DATE") or dt.datetime.now(ZoneInfo("Asia/Kolkata")).date().isoformat()
 
 keeper_item = {
     "type": "object",
@@ -51,12 +57,7 @@ def normalize_topic(value):
 
 
 def history_from_all_packs(old):
-    """Rebuild permanent history from every published manifest.
-
-    This makes the repository itself the source of truth. Even if the compact
-    history file is accidentally truncated, previously published lessons are
-    recovered before the next topic-selection call.
-    """
+    """Rebuild permanent history from every published manifest."""
     topics = list(old.get("topics", []))
     records = list(old.get("records", []))
     seen = {normalize_topic(x) for x in topics if x}
@@ -102,12 +103,6 @@ def near_duplicate(topic, fingerprints):
 
 
 def choose_fresh_topics(old):
-    """Ask the core selector, then reject semantic near-duplicates.
-
-    Rejected suggestions are added to the exclusion list and the selector is
-    called again. This handles cosmetic title changes such as 'Halo effect in
-    hiring' versus 'The halo effect and recruitment decisions'.
-    """
     fingerprints = set(old.get("fingerprints", []))
     accepted = {}
     attempts = 0
@@ -177,6 +172,34 @@ Rules:
     return keeper
 
 
+def validate_manifest(manifest):
+    lessons = manifest.get("lessons", [])
+    if len(lessons) != 10:
+        raise RuntimeError(f"Expected 10 lessons, got {len(lessons)}")
+    ids = [x.get("id") for x in lessons]
+    if len(set(ids)) != 10:
+        raise RuntimeError("Duplicate chamber IDs")
+    titles = [normalize_topic(x.get("title")) for x in lessons]
+    if len(set(titles)) != 10:
+        raise RuntimeError("Duplicate lesson titles in today's pack")
+    for lesson in lessons:
+        if len(lesson.get("keeper", [])) != 5:
+            raise RuntimeError(f"{lesson.get('id')} does not have exactly five Keeper moments")
+        for language in ("english", "marathi"):
+            content = lesson.get(language, {})
+            if not (6 <= len(content.get("sections", [])) <= 7):
+                raise RuntimeError(f"{lesson.get('id')} has invalid {language} section count")
+            quizzes = content.get("quiz", [])
+            if len(quizzes) != 5:
+                raise RuntimeError(f"{lesson.get('id')} has invalid {language} quiz count")
+            for question in quizzes:
+                options = question.get("options", [])
+                if len(options) != 4 or len({str(x).strip().casefold() for x in options}) != 4:
+                    raise RuntimeError(f"Repeated or malformed options in {lesson.get('id')} {language}")
+                if not 0 <= int(question.get("answerIndex", -1)) < 4:
+                    raise RuntimeError(f"Invalid answer index in {lesson.get('id')} {language}")
+
+
 def main():
     out = g.DAILY / g.DATE
     out.mkdir(parents=True, exist_ok=True)
@@ -185,9 +208,9 @@ def main():
     by_id = {x["id"]: x for x in picks}
     manifest = {
         "date": g.DATE,
-        "version": 5,
+        "version": 6,
         "visualMode": "native-cave-keeper",
-        "actualMode": "native-reader-permanent-history",
+        "actualMode": "native-reader-five-keeper-no-images",
         "generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "lessons": [],
     }
@@ -211,8 +234,11 @@ def main():
         manifest["lessons"].append(lesson)
         (out / f"{cid}.json").write_text(json.dumps(lesson, ensure_ascii=False), encoding="utf-8")
 
-    (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
-    (g.DAILY / "latest.json").write_text(json.dumps({"date": g.DATE}), encoding="utf-8")
+    validate_manifest(manifest)
+    # Publish atomically: write the complete pack first, then advance latest.
+    manifest_tmp = out / "manifest.json.tmp"
+    manifest_tmp.write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+    manifest_tmp.replace(out / "manifest.json")
 
     for pick in picks:
         topic = pick["topic"]
@@ -228,7 +254,11 @@ def main():
     old["fingerprints"] = sorted({normalize_topic(x) for x in old["topics"] if normalize_topic(x)})[-10000:]
     g.HISTORY.parent.mkdir(parents=True, exist_ok=True)
     g.HISTORY.write_text(json.dumps(old, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("Generated", g.DATE, "with permanent history, semantic duplicate rejection, 10 lessons and zero AI images")
+
+    latest_tmp = g.DAILY / "latest.json.tmp"
+    latest_tmp.write_text(json.dumps({"date": g.DATE}), encoding="utf-8")
+    latest_tmp.replace(g.DAILY / "latest.json")
+    print("Generated", g.DATE, "IST with 10 fresh lessons, 50 quizzes, five Keeper moments each and zero AI images")
 
 
 if __name__ == "__main__":
