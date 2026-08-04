@@ -1,0 +1,96 @@
+name: Learning Cave Daily Publisher
+
+on:
+  schedule:
+    # 00:15 UTC = 05:45 India Standard Time.
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+    inputs:
+      lesson_date:
+        description: 'Optional YYYY-MM-DD date override (Asia/Kolkata by default)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: learning-cave-daily-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TEXT_MODEL: gpt-5-mini
+      KEEPER_MODEL: gpt-4.1-mini
+      LESSON_DATE: ${{ inputs.lesson_date }}
+    steps:
+      - name: Check out app content branch
+        uses: actions/checkout@v4
+        with:
+          ref: build-learning-cave-v2-direct
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify API access
+        run: |
+          test -n "$OPENAI_API_KEY"
+          python ai/api_probe.py
+
+      - name: Generate fresh India-date pack
+        run: python ai/generate_daily.py
+
+      - name: Validate published pack
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          latest = json.loads(pathlib.Path('daily/latest.json').read_text(encoding='utf-8'))['date']
+          manifest_path = pathlib.Path('daily') / latest / 'manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          assert manifest['date'] == latest
+          assert len(manifest['lessons']) == 10
+          assert len({x['id'] for x in manifest['lessons']}) == 10
+          assert len({x['title'].strip().casefold() for x in manifest['lessons']}) == 10
+          assert sum(len(x['english']['quiz']) for x in manifest['lessons']) == 50
+          assert sum(len(x['marathi']['quiz']) for x in manifest['lessons']) == 50
+          for lesson in manifest['lessons']:
+              assert len(lesson['keeper']) == 5
+              for language in ('english', 'marathi'):
+                  assert 6 <= len(lesson[language]['sections']) <= 7
+                  assert len(lesson[language]['quiz']) == 5
+                  for question in lesson[language]['quiz']:
+                      assert len(question['options']) == 4
+                      assert len({str(v).strip().casefold() for v in question['options']}) == 4
+                      assert 0 <= question['answerIndex'] < 4
+          print('Validated daily pack', latest)
+          PY
+
+      - name: Publish with conflict-safe retry
+        run: |
+          set -euo pipefail
+          git config user.name "Learning Cave Daily Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add daily ai/used_topics.json android-v2/app/src/main/java/com/akshad/learningcave/MainActivity.java
+          if git diff --cached --quiet; then
+            echo "Nothing changed. Today's pack already exists."
+            exit 0
+          fi
+          git commit -m "Publish daily Learning Cave pack [skip ci]"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin build-learning-cave-v2-direct && git push origin HEAD:build-learning-cave-v2-direct; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            git fetch origin build-learning-cave-v2-direct
+            git rebase origin/build-learning-cave-v2-direct
+            sleep $((attempt * 5))
+          done
+          echo "Failed to publish after three attempts" >&2
+          exit 1
