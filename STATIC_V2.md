@@ -1,0 +1,1 @@
+Static internet-oriented Learning Cave V2 build. No AI generation or scoring.

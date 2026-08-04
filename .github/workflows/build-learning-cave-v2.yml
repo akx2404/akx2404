@@ -1,0 +1,39 @@
+name: Build Learning Cave V2 APK
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Android project
+        run: |
+          cat v2partaa v2partab v2partac v2partad > lc_v2.b64
+          base64 --decode lc_v2.b64 > lc_v2.tar.gz
+          gzip -t lc_v2.tar.gz
+          tar -xzf lc_v2.tar.gz
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build APK
+        working-directory: lc_v2
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Name APK
+        run: cp lc_v2/app/build/outputs/apk/debug/app-debug.apk Akshads-Learning-Cave-V2.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: akshads-learning-cave-v2-apk
+          path: Akshads-Learning-Cave-V2.apk
+          if-no-files-found: error
+          retention-days: 1
