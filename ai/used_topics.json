@@ -54,7 +54,21 @@
     "Charisma, desire and institutional capture",
     "Performative truths: when assertions change the world",
     "From wunderkammer to museum: how display made knowledge public",
-    "Fire‑giver myths: theft, technology and communal boundaries"
+    "Fire‑giver myths: theft, technology and communal boundaries",
+    "Predictive Brains: Expectation, Surprise and Belief‑Updating",
+    "Focal Points and Silent Coordination",
+    "Performative Truths: When Saying Something Makes It So",
+    "Fire-Givers: Theft, Technology and the Rules of Access",
+    "Choice blindness — why we confabulate reasons for choices we didn’t make",
+    "Moral panics and media feedback loops",
+    "Brinkmanship as stochastic bargaining — randomness, timing and accidental escalation",
+    "The Copper Scroll — treasure inventory, map or ritual text?",
+    "Information laundering — how rumors become institutional facts",
+    "Pareidolia and hyperactive agency detection",
+    "Leaders as transitional objects — attachment dynamics in political followings",
+    "Moral luck in institutions — when outcomes, not intentions, determine blame",
+    "Serialized storytelling and the modern self",
+    "Night-terror spirits and sleep-paralysis rituals across cultures"
   ],
   "records": [
     {
@@ -176,6 +190,90 @@
       "chamber": "mythology",
       "topic": "Fire‑giver myths: theft, technology and communal boundaries",
       "fingerprint": "firegiver myths theft technology communal boundaries"
+    },
+    {
+      "date": "2026-08-04",
+      "chamber": "psychology",
+      "topic": "Predictive Brains: Expectation, Surprise and Belief‑Updating",
+      "fingerprint": "predictive brains expectation surprise beliefupdating"
+    },
+    {
+      "date": "2026-08-04",
+      "chamber": "game-theory",
+      "topic": "Focal Points and Silent Coordination",
+      "fingerprint": "focal points silent coordination"
+    },
+    {
+      "date": "2026-08-04",
+      "chamber": "philosophy",
+      "topic": "Performative Truths: When Saying Something Makes It So",
+      "fingerprint": "performative truths saying something makes it so"
+    },
+    {
+      "date": "2026-08-04",
+      "chamber": "mythology",
+      "topic": "Fire-Givers: Theft, Technology and the Rules of Access",
+      "fingerprint": "fire givers theft technology rules access"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "psychology",
+      "topic": "Choice blindness — why we confabulate reasons for choices we didn’t make",
+      "fingerprint": "choice blindness we confabulate reasons for choices we didnt make"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "sociology",
+      "topic": "Moral panics and media feedback loops",
+      "fingerprint": "moral panics media feedback loops"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "game-theory",
+      "topic": "Brinkmanship as stochastic bargaining — randomness, timing and accidental escalation",
+      "fingerprint": "brinkmanship as stochastic bargaining randomness timing accidental escalation"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "history-mysteries",
+      "topic": "The Copper Scroll — treasure inventory, map or ritual text?",
+      "fingerprint": "copper scroll treasure inventory map ritual text"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "political-nature",
+      "topic": "Information laundering — how rumors become institutional facts",
+      "fingerprint": "information laundering rumors become institutional facts"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "mind-glitches",
+      "topic": "Pareidolia and hyperactive agency detection",
+      "fingerprint": "pareidolia hyperactive agency detection"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "psychoanalysis",
+      "topic": "Leaders as transitional objects — attachment dynamics in political followings",
+      "fingerprint": "leaders as transitional objects attachment dynamics political followings"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "philosophy",
+      "topic": "Moral luck in institutions — when outcomes, not intentions, determine blame",
+      "fingerprint": "moral luck institutions outcomes not intentions determine blame"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "culture",
+      "topic": "Serialized storytelling and the modern self",
+      "fingerprint": "serialized storytelling modern self"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "mythology",
+      "topic": "Night-terror spirits and sleep-paralysis rituals across cultures",
+      "fingerprint": "night terror spirits sleep paralysis rituals across cultures"
     }
   ],
   "fingerprints": [
@@ -186,12 +284,15 @@
     "attentional blink wild",
     "boundary extension we remember scenes bigger than they were",
     "boundary work urban commons",
+    "brinkmanship as stochastic bargaining randomness timing accidental escalation",
     "change blindness illusion stable world",
     "charisma desire institutional capture",
+    "choice blindness we confabulate reasons for choices we didnt make",
     "coalition formation asymmetric exit options",
     "collective dreams as cultural diagnostics",
     "collective knowledge group responsibility",
     "color politics palettes steer public emotion legitimacy",
+    "copper scroll treasure inventory map ritual text",
     "costly signalling cheap talk modern politics markets",
     "counter signalling through ritualized restraint",
     "crowd decides who counts",
@@ -206,25 +307,36 @@
     "extended mind digital selves who are we devices think us",
     "faces files biometric id reconfiguration power",
     "fakes rewire taste artistic forgeries reshape cultural authority",
+    "fire givers theft technology rules access",
     "firegiver myths theft technology communal boundaries",
     "flood myths rapid environmental memory collective stories ancient sea changes",
+    "focal points silent coordination",
     "focal points silent coordination finding order without rules",
     "grief as governance states movements harness mourning build legitimacy",
     "hidden curricula institutions everyday norms reproduce inequality",
     "illusory transparency tactical opacity",
+    "information laundering rumors become institutional facts",
     "institutional moral licensing organizations normalize harm",
     "interoception decision making bodily signals shape judgments preferences",
     "invisible labour civility",
+    "leaders as transitional objects attachment dynamics political followings",
+    "moral luck institutions outcomes not intentions determine blame",
+    "moral panics media feedback loops",
+    "night terror spirits sleep paralysis rituals across cultures",
     "norm cascades online communities small shifts become new standards",
+    "pareidolia hyperactive agency detection",
     "performative truths assertions change world",
+    "performative truths saying something makes it so",
     "phaistos disc stamped symbols bronze age crete",
     "predictive brains expectation surprise belief updating",
+    "predictive brains expectation surprise beliefupdating",
     "projection collective scapegoating psychoanalytic roots persecution",
     "remix culture cultural memory sampling rewrites history identity",
     "responsibility gaps algorithmic co agents who is blameworthy ais act",
     "ritualized costly apologies as cooperation stabilizers",
     "saccadic omission gaps seeing",
     "saqqara bird toy ritual symbol ancient aeronautics",
+    "serialized storytelling modern self",
     "sleeper king myths dormant saviours across cultures",
     "source monitoring errors false familiarity we misremember origins ideas",
     "spectacle legitimacy state rituals parades viral campaigns",
