@@ -68,7 +68,24 @@
     "Leaders as transitional objects — attachment dynamics in political followings",
     "Moral luck in institutions — when outcomes, not intentions, determine blame",
     "Serialized storytelling and the modern self",
-    "Night-terror spirits and sleep-paralysis rituals across cultures"
+    "Night-terror spirits and sleep-paralysis rituals across cultures",
+    "Choice Blindness: Why We Invent Reasons for Choices We Didn't Make",
+    "When a Whisper Becomes a Law: Moral Panics and Media Feedback Loops",
+    "Brinkmanship as Stochastic Bargaining",
+    "Why We See Faces and Plots in the Static",
+    "Leaders as Transitional Objects",
+    "Moral Luck in Institutions",
+    "The Night-Weight: How One Body State Became Many Spirits",
+    "Counterfactual thinking and policy regret — how ‘what if’ shapes choices",
+    "Social repair rituals — how communities restore trust after scandals",
+    "Assortative matching under noisy signals — dating markets, jobs and algorithmic swipes",
+    "The Baghdad Battery — primitive galvanic cell, storage jar or modern misread?",
+    "Sanction theatre — performative punishments and their political leverage",
+    "Troxler fading in everyday life — how sustained attention makes things vanish",
+    "Symbolic hoarding — possessions as defenses against loss and identity gaps",
+    "Epistemic humility in polarized publics — when admitting ignorance is civic practice",
+    "Materiality of marginalia — how readers’ notes reshape texts and canons",
+    "Death’s clerks — administrative metaphors for afterlife judgment across cultures"
   ],
   "records": [
     {
@@ -274,6 +291,108 @@
       "chamber": "mythology",
       "topic": "Night-terror spirits and sleep-paralysis rituals across cultures",
       "fingerprint": "night terror spirits sleep paralysis rituals across cultures"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "psychology",
+      "topic": "Choice Blindness: Why We Invent Reasons for Choices We Didn't Make",
+      "fingerprint": "choice blindness we invent reasons for choices we didn t make"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "sociology",
+      "topic": "When a Whisper Becomes a Law: Moral Panics and Media Feedback Loops",
+      "fingerprint": "whisper becomes law moral panics media feedback loops"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "game-theory",
+      "topic": "Brinkmanship as Stochastic Bargaining",
+      "fingerprint": "brinkmanship as stochastic bargaining"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "mind-glitches",
+      "topic": "Why We See Faces and Plots in the Static",
+      "fingerprint": "we see faces plots static"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "psychoanalysis",
+      "topic": "Leaders as Transitional Objects",
+      "fingerprint": "leaders as transitional objects"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "philosophy",
+      "topic": "Moral Luck in Institutions",
+      "fingerprint": "moral luck institutions"
+    },
+    {
+      "date": "2026-08-05",
+      "chamber": "mythology",
+      "topic": "The Night-Weight: How One Body State Became Many Spirits",
+      "fingerprint": "night weight one body state became many spirits"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "psychology",
+      "topic": "Counterfactual thinking and policy regret — how ‘what if’ shapes choices",
+      "fingerprint": "counterfactual thinking policy regret what if shapes choices"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "sociology",
+      "topic": "Social repair rituals — how communities restore trust after scandals",
+      "fingerprint": "social repair rituals communities restore trust after scandals"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "game-theory",
+      "topic": "Assortative matching under noisy signals — dating markets, jobs and algorithmic swipes",
+      "fingerprint": "assortative matching under noisy signals dating markets jobs algorithmic swipes"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "history-mysteries",
+      "topic": "The Baghdad Battery — primitive galvanic cell, storage jar or modern misread?",
+      "fingerprint": "baghdad battery primitive galvanic cell storage jar modern misread"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "political-nature",
+      "topic": "Sanction theatre — performative punishments and their political leverage",
+      "fingerprint": "sanction theatre performative punishments their political leverage"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "mind-glitches",
+      "topic": "Troxler fading in everyday life — how sustained attention makes things vanish",
+      "fingerprint": "troxler fading everyday life sustained attention makes things vanish"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "psychoanalysis",
+      "topic": "Symbolic hoarding — possessions as defenses against loss and identity gaps",
+      "fingerprint": "symbolic hoarding possessions as defenses against loss identity gaps"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "philosophy",
+      "topic": "Epistemic humility in polarized publics — when admitting ignorance is civic practice",
+      "fingerprint": "epistemic humility polarized publics admitting ignorance is civic practice"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "culture",
+      "topic": "Materiality of marginalia — how readers’ notes reshape texts and canons",
+      "fingerprint": "materiality marginalia readers notes reshape texts canons"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "mythology",
+      "topic": "Death’s clerks — administrative metaphors for afterlife judgment across cultures",
+      "fingerprint": "deaths clerks administrative metaphors for afterlife judgment across cultures"
     }
   ],
   "fingerprints": [
@@ -281,13 +400,17 @@
     "algorithmic collusion pricing bots evolve tacit cooperation",
     "antikythera ship s missing companions",
     "artistic forgeries reconfiguration taste",
+    "assortative matching under noisy signals dating markets jobs algorithmic swipes",
     "attentional blink wild",
+    "baghdad battery primitive galvanic cell storage jar modern misread",
     "boundary extension we remember scenes bigger than they were",
     "boundary work urban commons",
+    "brinkmanship as stochastic bargaining",
     "brinkmanship as stochastic bargaining randomness timing accidental escalation",
     "change blindness illusion stable world",
     "charisma desire institutional capture",
     "choice blindness we confabulate reasons for choices we didnt make",
+    "choice blindness we invent reasons for choices we didn t make",
     "coalition formation asymmetric exit options",
     "collective dreams as cultural diagnostics",
     "collective knowledge group responsibility",
@@ -295,12 +418,15 @@
     "copper scroll treasure inventory map ritual text",
     "costly signalling cheap talk modern politics markets",
     "counter signalling through ritualized restraint",
+    "counterfactual thinking policy regret what if shapes choices",
     "crowd decides who counts",
     "dancing plague 1518 epidemic mass psychogenic illness ritual breakdown",
+    "deaths clerks administrative metaphors for afterlife judgment across cultures",
     "descent return underworld journeys model power",
     "dystopian fiction as policy driver stories shape real world regulation",
     "emotion contagion mixed media environments",
     "emotion contagion mixedmedia environments",
+    "epistemic humility polarized publics admitting ignorance is civic practice",
     "epistemic injustice crowdsourced expertise",
     "epistolary forms cultivation empathy",
     "exit costs shape alliances",
@@ -319,10 +445,14 @@
     "institutional moral licensing organizations normalize harm",
     "interoception decision making bodily signals shape judgments preferences",
     "invisible labour civility",
+    "leaders as transitional objects",
     "leaders as transitional objects attachment dynamics political followings",
+    "materiality marginalia readers notes reshape texts canons",
+    "moral luck institutions",
     "moral luck institutions outcomes not intentions determine blame",
     "moral panics media feedback loops",
     "night terror spirits sleep paralysis rituals across cultures",
+    "night weight one body state became many spirits",
     "norm cascades online communities small shifts become new standards",
     "pareidolia hyperactive agency detection",
     "performative truths assertions change world",
@@ -335,16 +465,22 @@
     "responsibility gaps algorithmic co agents who is blameworthy ais act",
     "ritualized costly apologies as cooperation stabilizers",
     "saccadic omission gaps seeing",
+    "sanction theatre performative punishments their political leverage",
     "saqqara bird toy ritual symbol ancient aeronautics",
     "serialized storytelling modern self",
     "sleeper king myths dormant saviours across cultures",
+    "social repair rituals communities restore trust after scandals",
     "source monitoring errors false familiarity we misremember origins ideas",
     "spectacle legitimacy state rituals parades viral campaigns",
+    "symbolic hoarding possessions as defenses against loss identity gaps",
     "transference digital communities displaced attachments influencers moderators",
     "transgenerational haunting family secrets",
     "trickster archetypes across cultures social innovation",
+    "troxler fading everyday life sustained attention makes things vanish",
     "underworld journeys as political models",
     "voynich manuscript cipher herbarium deliberate hoax",
+    "we see faces plots static",
+    "whisper becomes law moral panics media feedback loops",
     "wunderkammer museum display made knowledge public"
   ]
 }
