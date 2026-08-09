@@ -85,7 +85,25 @@
     "Symbolic hoarding — possessions as defenses against loss and identity gaps",
     "Epistemic humility in polarized publics — when admitting ignorance is civic practice",
     "Materiality of marginalia — how readers’ notes reshape texts and canons",
-    "Death’s clerks — administrative metaphors for afterlife judgment across cultures"
+    "Death’s clerks — administrative metaphors for afterlife judgment across cultures",
+    "What If Changed Everything: Counterfactual Thinking and Policy Regret",
+    "Rituals of Repair: How Communities Rebuild Trust After Scandal",
+    "Assortative Matching Under Noisy Signals",
+    "Sanction Theatre: When Punishment Is Policy — and When It’s Performance",
+    "When Things Vanish: Troxler Fading in Everyday Life",
+    "When Saying “I Don’t Know” Becomes Civic Practice",
+    "Materiality of Marginalia: How Notes Rewrite Texts and Canons",
+    "Death’s Clerks: The Afterlife as Bureaucracy",
+    "Metacognitive confidence and social influence — how 'feeling of knowing' drives belief spread",
+    "Shadow institutions — informal networks that bypass rules and reshape outcomes",
+    "Reputation discounting in repeated interactions — cooperation when memories fade",
+    "The Somerton Man (Tamám Shud) — identity, code and possible Cold‑War espionage",
+    "Weaponized nostalgia — monuments, retro aesthetics and the manufacture of legitimacy",
+    "Prosopagnosia and the social world — when faces no longer read as people",
+    "Denial economies in climate politics — unconscious defences that stall collective action",
+    "Collective personhood and moral responsibility — when groups function as agents",
+    "Archive activism — recovered documents that rewrite national narratives",
+    "The Cassandra motif across cultures — ignored warnings and the politics of prophecy"
   ],
   "records": [
     {
@@ -393,13 +411,123 @@
       "chamber": "mythology",
       "topic": "Death’s clerks — administrative metaphors for afterlife judgment across cultures",
       "fingerprint": "deaths clerks administrative metaphors for afterlife judgment across cultures"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "psychology",
+      "topic": "What If Changed Everything: Counterfactual Thinking and Policy Regret",
+      "fingerprint": "what if changed everything counterfactual thinking policy regret"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "sociology",
+      "topic": "Rituals of Repair: How Communities Rebuild Trust After Scandal",
+      "fingerprint": "rituals repair communities rebuild trust after scandal"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "game-theory",
+      "topic": "Assortative Matching Under Noisy Signals",
+      "fingerprint": "assortative matching under noisy signals"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "political-nature",
+      "topic": "Sanction Theatre: When Punishment Is Policy — and When It’s Performance",
+      "fingerprint": "sanction theatre punishment is policy its performance"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "mind-glitches",
+      "topic": "When Things Vanish: Troxler Fading in Everyday Life",
+      "fingerprint": "things vanish troxler fading everyday life"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "philosophy",
+      "topic": "When Saying “I Don’t Know” Becomes Civic Practice",
+      "fingerprint": "saying i dont know becomes civic practice"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "culture",
+      "topic": "Materiality of Marginalia: How Notes Rewrite Texts and Canons",
+      "fingerprint": "materiality marginalia notes rewrite texts canons"
+    },
+    {
+      "date": "2026-08-08",
+      "chamber": "mythology",
+      "topic": "Death’s Clerks: The Afterlife as Bureaucracy",
+      "fingerprint": "deaths clerks afterlife as bureaucracy"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "psychology",
+      "topic": "Metacognitive confidence and social influence — how 'feeling of knowing' drives belief spread",
+      "fingerprint": "metacognitive confidence social influence feeling knowing drives belief spread"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "sociology",
+      "topic": "Shadow institutions — informal networks that bypass rules and reshape outcomes",
+      "fingerprint": "shadow institutions informal networks that bypass rules reshape outcomes"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "game-theory",
+      "topic": "Reputation discounting in repeated interactions — cooperation when memories fade",
+      "fingerprint": "reputation discounting repeated interactions cooperation memories fade"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "history-mysteries",
+      "topic": "The Somerton Man (Tamám Shud) — identity, code and possible Cold‑War espionage",
+      "fingerprint": "somerton man tamam shud identity code possible coldwar espionage"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "political-nature",
+      "topic": "Weaponized nostalgia — monuments, retro aesthetics and the manufacture of legitimacy",
+      "fingerprint": "weaponized nostalgia monuments retro aesthetics manufacture legitimacy"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "mind-glitches",
+      "topic": "Prosopagnosia and the social world — when faces no longer read as people",
+      "fingerprint": "prosopagnosia social world faces no longer read as people"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "psychoanalysis",
+      "topic": "Denial economies in climate politics — unconscious defences that stall collective action",
+      "fingerprint": "denial economies climate politics unconscious defences that stall collective action"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "philosophy",
+      "topic": "Collective personhood and moral responsibility — when groups function as agents",
+      "fingerprint": "collective personhood moral responsibility groups function as agents"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "culture",
+      "topic": "Archive activism — recovered documents that rewrite national narratives",
+      "fingerprint": "archive activism recovered documents that rewrite national narratives"
+    },
+    {
+      "date": "2026-08-09",
+      "chamber": "mythology",
+      "topic": "The Cassandra motif across cultures — ignored warnings and the politics of prophecy",
+      "fingerprint": "cassandra motif across cultures ignored warnings politics prophecy"
     }
   ],
   "fingerprints": [
     "affective forecasting misprediction we misjudge future emotions",
     "algorithmic collusion pricing bots evolve tacit cooperation",
     "antikythera ship s missing companions",
+    "archive activism recovered documents that rewrite national narratives",
     "artistic forgeries reconfiguration taste",
+    "assortative matching under noisy signals",
     "assortative matching under noisy signals dating markets jobs algorithmic swipes",
     "attentional blink wild",
     "baghdad battery primitive galvanic cell storage jar modern misread",
@@ -407,6 +535,7 @@
     "boundary work urban commons",
     "brinkmanship as stochastic bargaining",
     "brinkmanship as stochastic bargaining randomness timing accidental escalation",
+    "cassandra motif across cultures ignored warnings politics prophecy",
     "change blindness illusion stable world",
     "charisma desire institutional capture",
     "choice blindness we confabulate reasons for choices we didnt make",
@@ -414,6 +543,7 @@
     "coalition formation asymmetric exit options",
     "collective dreams as cultural diagnostics",
     "collective knowledge group responsibility",
+    "collective personhood moral responsibility groups function as agents",
     "color politics palettes steer public emotion legitimacy",
     "copper scroll treasure inventory map ritual text",
     "costly signalling cheap talk modern politics markets",
@@ -422,6 +552,8 @@
     "crowd decides who counts",
     "dancing plague 1518 epidemic mass psychogenic illness ritual breakdown",
     "deaths clerks administrative metaphors for afterlife judgment across cultures",
+    "deaths clerks afterlife as bureaucracy",
+    "denial economies climate politics unconscious defences that stall collective action",
     "descent return underworld journeys model power",
     "dystopian fiction as policy driver stories shape real world regulation",
     "emotion contagion mixed media environments",
@@ -447,7 +579,9 @@
     "invisible labour civility",
     "leaders as transitional objects",
     "leaders as transitional objects attachment dynamics political followings",
+    "materiality marginalia notes rewrite texts canons",
     "materiality marginalia readers notes reshape texts canons",
+    "metacognitive confidence social influence feeling knowing drives belief spread",
     "moral luck institutions",
     "moral luck institutions outcomes not intentions determine blame",
     "moral panics media feedback loops",
@@ -461,18 +595,26 @@
     "predictive brains expectation surprise belief updating",
     "predictive brains expectation surprise beliefupdating",
     "projection collective scapegoating psychoanalytic roots persecution",
+    "prosopagnosia social world faces no longer read as people",
     "remix culture cultural memory sampling rewrites history identity",
+    "reputation discounting repeated interactions cooperation memories fade",
     "responsibility gaps algorithmic co agents who is blameworthy ais act",
     "ritualized costly apologies as cooperation stabilizers",
+    "rituals repair communities rebuild trust after scandal",
     "saccadic omission gaps seeing",
     "sanction theatre performative punishments their political leverage",
+    "sanction theatre punishment is policy its performance",
     "saqqara bird toy ritual symbol ancient aeronautics",
+    "saying i dont know becomes civic practice",
     "serialized storytelling modern self",
+    "shadow institutions informal networks that bypass rules reshape outcomes",
     "sleeper king myths dormant saviours across cultures",
     "social repair rituals communities restore trust after scandals",
+    "somerton man tamam shud identity code possible coldwar espionage",
     "source monitoring errors false familiarity we misremember origins ideas",
     "spectacle legitimacy state rituals parades viral campaigns",
     "symbolic hoarding possessions as defenses against loss identity gaps",
+    "things vanish troxler fading everyday life",
     "transference digital communities displaced attachments influencers moderators",
     "transgenerational haunting family secrets",
     "trickster archetypes across cultures social innovation",
@@ -480,6 +622,8 @@
     "underworld journeys as political models",
     "voynich manuscript cipher herbarium deliberate hoax",
     "we see faces plots static",
+    "weaponized nostalgia monuments retro aesthetics manufacture legitimacy",
+    "what if changed everything counterfactual thinking policy regret",
     "whisper becomes law moral panics media feedback loops",
     "wunderkammer museum display made knowledge public"
   ]
